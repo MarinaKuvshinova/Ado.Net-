@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3a6997538cad4cb0b9038b5afa20fa28" Name="Diagram1">
+        <EntityTypeShape EntityType="LandscapeDesignModel.Plants" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LandscapeDesignModel.PlantSpecies" Width="1.5" PointX="1.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LandscapeDesignModel.ProjectPlants" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LandscapeDesignModel.Projects" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LandscapeDesignModel.ProjectStructure" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LandscapeDesignModel.Structures" Width="1.5" PointX="3.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LandscapeDesignModel.sysdiagrams" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="LandscapeDesignModel.FK__Plants__IDPlantS__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="LandscapeDesignModel.FK__ProjectPl__IDPla__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="LandscapeDesignModel.FK__ProjectPl__IDPro__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="LandscapeDesignModel.FK__ProjectSt__IDPro__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="LandscapeDesignModel.FK__ProjectSt__IDStr__5FB337D6" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

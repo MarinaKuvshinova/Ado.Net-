@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LandscapeDesignModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Plants">
+    <Key>
+      <PropertyRef Name="IDPlant" />
+    </Key>
+    <Property Name="IDPlant" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlantName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IDPlantSpecies" Type="int" Nullable="false" />
+    <Property Name="PlantInfo" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="WidthPlant" Type="float" />
+    <Property Name="HeightPlant" Type="float" />
+    <Property Name="PicturePlant" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PicturePlantTop" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PlantSpecies">
+    <Key>
+      <PropertyRef Name="IDPlantSpecies" />
+    </Key>
+    <Property Name="IDPlantSpecies" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlantSpecies" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectPlants">
+    <Key>
+      <PropertyRef Name="IDProjectPlants" />
+    </Key>
+    <Property Name="IDProjectPlants" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDProject" Type="int" Nullable="false" />
+    <Property Name="IDPlant" Type="int" Nullable="false" />
+    <Property Name="PointX" Type="float" Nullable="false" />
+    <Property Name="PointY" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="IDProject" />
+    </Key>
+    <Property Name="IDProject" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Width" Type="float" Nullable="false" />
+    <Property Name="Height" Type="float" Nullable="false" />
+    <Property Name="Scale" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectStructure">
+    <Key>
+      <PropertyRef Name="IDProjectStructure" />
+    </Key>
+    <Property Name="IDProjectStructure" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDProject" Type="int" Nullable="false" />
+    <Property Name="IDStructure" Type="int" Nullable="false" />
+    <Property Name="WidthStructure" Type="float" Nullable="false" />
+    <Property Name="HeightStructure" Type="float" Nullable="false" />
+    <Property Name="PointX" Type="float" Nullable="false" />
+    <Property Name="PointY" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Structures">
+    <Key>
+      <PropertyRef Name="IDStructure" />
+    </Key>
+    <Property Name="IDStructure" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StructureName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="StructurePicture" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="StructureTop" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__Plants__IDPlantS__1DE57479">
+    <End Role="PlantSpecies" Type="Self.PlantSpecies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Plants" Type="Self.Plants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlantSpecies">
+        <PropertyRef Name="IDPlantSpecies" />
+      </Principal>
+      <Dependent Role="Plants">
+        <PropertyRef Name="IDPlantSpecies" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectPl__IDPla__6383C8BA">
+    <End Role="Plants" Type="Self.Plants" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProjectPlants" Type="Self.ProjectPlants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plants">
+        <PropertyRef Name="IDPlant" />
+      </Principal>
+      <Dependent Role="ProjectPlants">
+        <PropertyRef Name="IDPlant" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectPl__IDPro__628FA481">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProjectPlants" Type="Self.ProjectPlants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="IDProject" />
+      </Principal>
+      <Dependent Role="ProjectPlants">
+        <PropertyRef Name="IDProject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectSt__IDPro__5EBF139D">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProjectStructure" Type="Self.ProjectStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="IDProject" />
+      </Principal>
+      <Dependent Role="ProjectStructure">
+        <PropertyRef Name="IDProject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectSt__IDStr__5FB337D6">
+    <End Role="Structures" Type="Self.Structures" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProjectStructure" Type="Self.ProjectStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Structures">
+        <PropertyRef Name="IDStructure" />
+      </Principal>
+      <Dependent Role="ProjectStructure">
+        <PropertyRef Name="IDStructure" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LandscapeDesignModelStoreContainer">
+    <EntitySet Name="Plants" EntityType="Self.Plants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlantSpecies" EntityType="Self.PlantSpecies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectPlants" EntityType="Self.ProjectPlants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectStructure" EntityType="Self.ProjectStructure" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Structures" EntityType="Self.Structures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Plants__IDPlantS__1DE57479" Association="Self.FK__Plants__IDPlantS__1DE57479">
+      <End Role="PlantSpecies" EntitySet="PlantSpecies" />
+      <End Role="Plants" EntitySet="Plants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectPl__IDPla__6383C8BA" Association="Self.FK__ProjectPl__IDPla__6383C8BA">
+      <End Role="Plants" EntitySet="Plants" />
+      <End Role="ProjectPlants" EntitySet="ProjectPlants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectPl__IDPro__628FA481" Association="Self.FK__ProjectPl__IDPro__628FA481">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="ProjectPlants" EntitySet="ProjectPlants" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectSt__IDPro__5EBF139D" Association="Self.FK__ProjectSt__IDPro__5EBF139D">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="ProjectStructure" EntitySet="ProjectStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectSt__IDStr__5FB337D6" Association="Self.FK__ProjectSt__IDStr__5FB337D6">
+      <End Role="Structures" EntitySet="Structures" />
+      <End Role="ProjectStructure" EntitySet="ProjectStructure" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

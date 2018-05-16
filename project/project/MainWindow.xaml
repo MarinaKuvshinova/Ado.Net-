@@ -1,0 +1,267 @@
+﻿<Window x:Class="project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:project"
+        mc:Ignorable="d"
+        xml:lang="ru-RU"
+        Title="MainWindow" MouseLeftButtonDown="Window_MouseLeftButtonDown" MinHeight="600" MinWidth="1000" ResizeMode="NoResize" Height="600" Width="1000" WindowStyle="None"  WindowStartupLocation="CenterScreen" >
+    <!--стилизация-->
+    <Window.Resources>
+        <ResourceDictionary Source="ResourcesPage.xaml">
+        </ResourceDictionary>
+    </Window.Resources>
+    <!--анимация меню окна-->
+    <Window.Triggers>
+        <!--открытие меню окна-->
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+        <!--закрытие меню окна-->
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <!--страница-->
+    <Grid>
+        <!--структура рабочей области-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel x:Name="WindowNewProject" Grid.Row="0" Background="#607d8b" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid>
+                <!--окно "создание проекта"-->
+                <DockPanel  x:Name="NewProjectWindow" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Grid  Width="300" HorizontalAlignment="Center" Background="#e5e5e5" VerticalAlignment="Center">
+                        <!--структура окна "создание проекта"-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <!--заголовок окна "создание проекта"-->
+                        <TextBlock Grid.Row="0" Margin="0 30 0 20" FontSize="20" Text="Создание проекта" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <!--поле ввода "проекта проекта"-->
+                        <TextBox x:Name="TextBoxNameProject" Grid.Row="1" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="labelBoxNameProject" Grid.Row="2" Margin="0 0 0 10" Text="название проекта" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <!--поле ввода "ширина проекта"-->
+                        <TextBox x:Name="TextBoxWidthProject" Grid.Row="3" HorizontalAlignment="Center" PreviewTextInput="StructureTextBox"/>
+                        <TextBlock x:Name="labelBoxWidthProject" Grid.Row="4" Margin="0 0 0 10" Text="ширина участка, м" HorizontalAlignment="Center" FontWeight="Bold" />
+                        <!--поле ввода "длина проекта"-->
+                        <TextBox x:Name="TextBoxHeightProject" Grid.Row="5" HorizontalAlignment="Center" PreviewTextInput="StructureTextBox"/>
+                        <TextBlock x:Name="labelBoxHeightProject" Grid.Row="6" Margin="0 0 0 5" Text="длина участка, м" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <!--поле сообщения об ошибке-->
+                        <TextBlock x:Name="TextBoxErrorProject" Grid.Row="7" Foreground="Red" Margin="0" Text="" Height="0" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <Button x:Name="ButtonNewProject" Grid.Row="8" Margin="50 50 50 5" Content="Создать" Click="ButtonNewProject_Click" />
+                        <TextBlock x:Name="TextOldProject" Grid.Row="9"  Margin="0 0 0 30" TextDecorations="Underline" Text="уже существует" HorizontalAlignment="Center" Cursor="Hand" MouseDown="OldProjectOpen_Click" />
+                    </Grid>
+                </DockPanel>
+                <!--окно "существующие проекты"-->
+                <DockPanel x:Name="OlpProjectWindow">
+                    <Grid   Width="300" HorizontalAlignment="Center" Background="#e5e5e5" VerticalAlignment="Center">
+                        <!--структура окна "существующие проекты"-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <!--заголовок окна "существующие проекты"-->
+                        <TextBlock Grid.Row="0" Margin="0 30 0 20" FontSize="20" Text="Существующие проекты" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <!--список имеющихся проектов-->
+                        <ListBox x:Name="ListProject" Grid.Row="1" Margin="20 0" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="15" Text="{Binding Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock x:Name="TextListErrorProject" Grid.Row="2" Foreground="Red" Margin="0 5 0 0" Text="" Height="0" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <Button x:Name="ButtonOldProject" Grid.Row="3" Margin="50 30 50 5" Content="Выбрать" Click="ButtonOldProject_Click" />
+                        <TextBlock x:Name="TextNewProject" Grid.Row="4"  Margin="0 0 0 30" TextDecorations="Underline" Text="создать проект" HorizontalAlignment="Center" Cursor="Hand" MouseDown="OldProjectOpen_Click" />
+                    </Grid>
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+        <!--поле дизайна ланшафта-->
+        <DockPanel x:Name="WorkingField" Background="#607d8b" Grid.Column="0" HorizontalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Canvas Grid.Column="0" x:Name="BackgroundCanvas" Background="#e5e5e5" Width="{Binding ActualWidth}" Height="{Binding ActualHeight}" SizeChanged="UpdateBackPattern" Margin="10 20 10 10" />
+                <Canvas Grid.Column="0" x:Name="WorkingFieldCanvas" Background="#80c783" MouseDown="CursorCoordinates_MouseDown" MouseMove="CursorMove" Margin="10 20 10 35">
+                    <!--строка состояния-->
+                    <StatusBar Canvas.Bottom="-25" Canvas.Left="0" x:Name="InfoStatusBar" Height="25" Margin="0" VerticalAlignment="Bottom">
+                        <StatusBarItem>
+                            <TextBlock x:Name="TextInfoStatusBar" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </Canvas>
+                <!--комплектующие ланшафтного дизайна-->
+                <TabControl x:Name="tabControl" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10 20 10 10" VerticalAlignment="Stretch">
+                    <!--растения-->
+                    <TabItem Header="Растения">
+                        <Grid Background="#FFE5E5E5">
+                            <!--структура вкладки "растения"-->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--разновидности растений-->
+                            <ComboBox Grid.Row="0" x:Name="PlantComboBox" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Top" SelectionChanged="PrintPicture" />
+                            <!--визуальное отображение растений-->
+                            <ListView Grid.Row="1" x:Name="PlantListView" HorizontalAlignment="Stretch" Margin="10 0 10 10" Grid.Column="2" SelectionChanged="SelectionChangedTab">
+                                <!--структурирование отображения-->
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ColumnsTab}" HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <!--экземпляр-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="123" BorderBrush="#FFD1D1D1" BorderThickness="2" Margin="0" CornerRadius="10" Background="#ebeff2">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <!--изображение растения-->
+                                                <Rectangle Margin="5" RadiusX="10" RadiusY="10" Width="105" Height="105" Stroke="#FF818181">
+                                                    <Rectangle.Fill>
+                                                        <ImageBrush ImageSource="{Binding Icon}"/>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <!--название растения-->
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="#686868" HorizontalAlignment="Center" Margin="0 0 0 3"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <!--строения-->
+                    <TabItem Header="Строения">
+                        <Grid Background="#FFE5E5E5">
+                            <!--структура вкладки "строения"-->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--визуальное отображение растений-->
+                            <DockPanel x:Name="ContainerStructure" Grid.Row="0">
+                                <Grid>
+                                    <ListView x:Name="StructureListView" HorizontalAlignment="Stretch" Margin="10" PreviewMouseLeftButtonUp="PreviewStructureListView_Click" SelectionChanged="SelectionChangedTab" >
+                                        <!--структурирование отображения-->
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <UniformGrid Columns="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ColumnsTab}" HorizontalAlignment="Center"/>
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Width="123" BorderBrush="#FFD1D1D1" BorderThickness="2" Margin="0" CornerRadius="10" Background="#ebeff2">
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <!--изображение строения-->
+                                                        <Rectangle Margin="5" RadiusX="10" RadiusY="10" Width="105" Height="105" Stroke="#FF818181">
+                                                            <Rectangle.Fill>
+                                                                <ImageBrush ImageSource="{Binding Icon}"/>
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                        <!--название строения-->
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="#686868" HorizontalAlignment="Center" Margin="0 0 0 3"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </DockPanel>
+                            <!--окно ввода размера строения-->
+                            <DockPanel x:Name="SetSizeStructureBox" Grid.Row="0"  Background="#FFE5E5E5" >
+                                <Grid HorizontalAlignment="Stretch" Margin="10 0 10 20">
+                                    <!--структура окнa ввода размера строения-->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <!--заголовок-->
+                                    <TextBlock Grid.Row="0" Margin="0 50 0 20" FontSize="20" Text="Введите значения" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <Canvas Grid.Column="0">
+                                        <Button Canvas.Top="0" Canvas.Right="0" x:Name="ButtonCloseWindowSize" Width="40" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}"  Margin="0 0 -10 0" Click="ButtonCloseWindowSize_Click">
+                                            <materialDesign:PackIcon Kind="WindowClose" Foreground="#22272f" Width="25" Height="25"/>
+                                        </Button>
+                                    </Canvas>
+                                    <!--поле для ввода ширины-->
+                                    <TextBox Grid.Row="1" x:Name="WidthStructureTextBox" HorizontalAlignment="Center"  PreviewTextInput="StructureTextBox"  />
+                                    <TextBlock Grid.Row="2" x:Name="WidthText" Margin="0 0 0 10" Text="ширина, м" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <!--поле для ввода длины-->
+                                    <TextBox Grid.Row="3" x:Name="LengthStructureTextBox" HorizontalAlignment="Center" PreviewTextInput="StructureTextBox" />
+                                    <TextBlock Grid.Row="4" x:Name="LengthText" Margin="0 0 0 5" Text="длина, м" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="5" x:Name="ErrorText" Foreground="Red" Margin="0" Text="" Height="0" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <Button Grid.Row="6" Margin="50 30 50 0" Content="Добавить" x:Name="SetSizeStructureButton" Click="SetSizeStructureButton_Click" />
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </DockPanel>
+        <!--шапка-->
+        <StackPanel x:Name="WindowMenu" Margin="0 -48 0 0" Background="#273238" Width="200" Height="62" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="10">
+            <!--массив эффектов-->
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <Canvas Height="42">
+                <!--закрыть-->
+                <Button x:Name="ButtonWindowClose" Style="{StaticResource ButtonNavWindow}" Click="ButtonWindow_Click">
+                    <materialDesign:PackIcon Kind="WindowClose" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"/>
+                </Button>
+                <!--розвернуть-->
+                <Button x:Name="ButtonWindowMaximize" Style="{StaticResource ButtonNavWindow}" Click="ButtonWindow_Click" Margin="0,0,50,0">
+                    <materialDesign:PackIcon Kind="WindowMaximize" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"></materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="ButtonWindowResrore" Style="{StaticResource ButtonNavWindow}" Click="ButtonWindow_Click" Margin="0,0,50,0">
+                    <materialDesign:PackIcon Kind="WindowRestore" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"></materialDesign:PackIcon>
+                </Button>
+                <!--свернуть-->
+                <Button x:Name="ButtonWindowMinimaze" Style="{StaticResource ButtonNavWindow}" Click="ButtonWindow_Click" Margin="0,0,100,0">
+                    <materialDesign:PackIcon Kind="WindowMinimize" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"></materialDesign:PackIcon>
+                </Button>
+                <!--сохранить-->
+                <Button x:Name="ButtonWindowSave" Style="{StaticResource ButtonNavWindow}" Click="ButtonWindow_Click" Margin="0,0,150,0">
+                    <materialDesign:PackIcon Kind="Floppy" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"></materialDesign:PackIcon>
+                </Button>
+            </Canvas>
+            <!--появление меню-->
+            <Button x:Name="ButtonOpenMenu" Style="{StaticResource ButtonNavWindow}" Width="200" Click="ButtonWindow_Click" Margin="0 -8 0 0" >
+                <materialDesign:PackIcon Kind="DragHorizontal" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"></materialDesign:PackIcon>
+            </Button>
+            <!--закрытие меню-->
+            <Button x:Name="ButtonCloseMenu" Style="{StaticResource ButtonNavWindow}" Width="200" Click="ButtonWindow_Click" Margin="0 -8 0 0" >
+                <materialDesign:PackIcon Kind="DragHorizontal" HorizontalAlignment="Center" Foreground="#fff" Width="25" Height="25"></materialDesign:PackIcon>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LandscapeDesignModelStoreContainer" CdmEntityContainer="LandscapeDesignEntities">
+    <EntitySetMapping Name="Plants">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.Plants">
+        <MappingFragment StoreEntitySet="Plants">
+          <ScalarProperty Name="IDPlant" ColumnName="IDPlant" />
+          <ScalarProperty Name="PlantName" ColumnName="PlantName" />
+          <ScalarProperty Name="IDPlantSpecies" ColumnName="IDPlantSpecies" />
+          <ScalarProperty Name="PlantInfo" ColumnName="PlantInfo" />
+          <ScalarProperty Name="WidthPlant" ColumnName="WidthPlant" />
+          <ScalarProperty Name="HeightPlant" ColumnName="HeightPlant" />
+          <ScalarProperty Name="PicturePlant" ColumnName="PicturePlant" />
+          <ScalarProperty Name="PicturePlantTop" ColumnName="PicturePlantTop" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlantSpecies">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.PlantSpecies">
+        <MappingFragment StoreEntitySet="PlantSpecies">
+          <ScalarProperty Name="IDPlantSpecies" ColumnName="IDPlantSpecies" />
+          <ScalarProperty Name="PlantSpecies1" ColumnName="PlantSpecies" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectPlants">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.ProjectPlants">
+        <MappingFragment StoreEntitySet="ProjectPlants">
+          <ScalarProperty Name="IDProjectPlants" ColumnName="IDProjectPlants" />
+          <ScalarProperty Name="IDProject" ColumnName="IDProject" />
+          <ScalarProperty Name="IDPlant" ColumnName="IDPlant" />
+          <ScalarProperty Name="PointX" ColumnName="PointX" />
+          <ScalarProperty Name="PointY" ColumnName="PointY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.Projects">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="IDProject" ColumnName="IDProject" />
+          <ScalarProperty Name="Project" ColumnName="Project" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Scale" ColumnName="Scale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectStructure">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.ProjectStructure">
+        <MappingFragment StoreEntitySet="ProjectStructure">
+          <ScalarProperty Name="IDProjectStructure" ColumnName="IDProjectStructure" />
+          <ScalarProperty Name="IDProject" ColumnName="IDProject" />
+          <ScalarProperty Name="IDStructure" ColumnName="IDStructure" />
+          <ScalarProperty Name="WidthStructure" ColumnName="WidthStructure" />
+          <ScalarProperty Name="HeightStructure" ColumnName="HeightStructure" />
+          <ScalarProperty Name="PointX" ColumnName="PointX" />
+          <ScalarProperty Name="PointY" ColumnName="PointY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Structures">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.Structures">
+        <MappingFragment StoreEntitySet="Structures">
+          <ScalarProperty Name="IDStructure" ColumnName="IDStructure" />
+          <ScalarProperty Name="StructureName" ColumnName="StructureName" />
+          <ScalarProperty Name="StructurePicture" ColumnName="StructurePicture" />
+          <ScalarProperty Name="StructureTop" ColumnName="StructureTop" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="LandscapeDesignModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
